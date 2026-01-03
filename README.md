@@ -9,11 +9,13 @@ This component exposes a custom service that allows you to control the position 
 
 This project is based on the work by v6ak (https://github.com/v6ak/v6-quietdrift).
 
-⚠️ Your SwitchBot Curtain 3 has to be on firmware v1.2 or newer.
+⚠️ **Requirements:**
+1.  **Firmware**: Your SwitchBot Curtain 3 must be on firmware **v1.2** or newer.
+2.  **Integration**: You must use the **native SwitchBot Bluetooth** integration in Home Assistant. This component does **NOT** work with curtains connected via a SwitchBot Hub (Cloud, Matter, or API), as it requires direct Bluetooth command access.
 
 ## ✨ Features
 
-*   **🤫 QuietDrift Support**: Move your curtains slowly and silently by setting the speed to `1` (or low values).
+*   **🤫 QuietDrift Support**: Unlock the ultra-silent "QuietDrift" mode easily.
 *   **⚡ Native Integration**: Works directly with your existing SwitchBot Curtain entities via the native Home Assistant Bluetooth stack.
 *   **🛠️ Zero Dependencies**: Does not require external gateways or cloud APIs; operates entirely locally via Bluetooth.
 *   **⚙️ UI Installation**: Install easily via HACS and configure via the Home Assistant interface.
@@ -27,7 +29,7 @@ This project is based on the work by v6ak (https://github.com/v6ak/v6-quietdrift
 1.  Open **HACS** in Home Assistant.
 2.  Go to the **Integrations** section.
 3.  Click the menu (three dots) in the top right corner and select **Custom repositories**.
-4.  Paste the URL of your GitHub repository.
+4.  Paste the URL of this GitHub repository.
 5.  Select **Integration** as the category and click **Add**.
 6.  Click **Download** on the new "SwitchBot Curtain 3 QuietDrift" card.
 7.  **Restart Home Assistant**.
@@ -56,11 +58,16 @@ You can control your curtains using the `switchbot_curtain_3_quietdrift.set_swit
 ### Service: `switchbot_curtain_3_quietdrift.set_switchbot_curtain_position`
 
 **Parameters:**
-*   `entity_id` (Required): The SwitchBot Curtain cover entity (e.g., `cover.bedroom_curtain`).
-*   `position` (Required): The target position, from `0` (Closed) to `100` (Open).
-*   `speed` (Optional): The movement speed (1-255).
-    *   **255**: Fast (Default)
-    *   **1**: Slowest (QuietDrift mode)
+
+*   **Entity** (`entity_id`) [Required]:
+    The SwitchBot Curtain cover entity. *Note: Must be the direct Bluetooth entity, not a helper group or Cloud entity.*
+*   **Position** (`position`) [Required]:
+    Target position from **0% (Closed)** to **100% (Open)**.
+*   **Speed Profile** (`speed`) [Optional]:
+    Select the movement profile:
+    *   `QuietDrift`: Ultra-slow, almost silent movement.
+    *   `Silent`: Faster than QuietDrift, but quieter than normal.
+    *   `Normal`: Standard operation speed (Default).
 
 ### Example: Automation (YAML)
 
@@ -80,5 +87,5 @@ actions:
     data:
       entity_id: cover.bedroom_curtain
       position: 100
-      speed: 1
+      speed: QuietDrift
 mode: single
