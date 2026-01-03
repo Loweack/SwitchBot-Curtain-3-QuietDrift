@@ -12,13 +12,13 @@ This component exposes a custom service that allows you to control the position 
 *   **🤫 QuietDrift Support**: Move your curtains slowly and silently by setting the speed to `1` (or low values).
 *   **⚡ Native Integration**: Works directly with your existing SwitchBot Curtain entities via the native Home Assistant Bluetooth stack.
 *   **🛠️ Zero Dependencies**: Does not require external gateways or cloud APIs; operates entirely locally via Bluetooth.
-*   **⚙️ UI Installation**: Install easily via HACS and configure via the Home Assistant interface (Config Flow).
+*   **⚙️ UI Installation**: Install easily via HACS and configure via the Home Assistant interface.
 
 ## 📥 Installation
 
 ### Option 1: HACS (Recommended)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=v6ak&repository=v6-quietdrift&category=integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Loweack&repository=SwitchBot-Curtain-3-QuietDrift&category=integration)
 
 1.  Open **HACS** in Home Assistant.
 2.  Go to the **Integrations** section.
