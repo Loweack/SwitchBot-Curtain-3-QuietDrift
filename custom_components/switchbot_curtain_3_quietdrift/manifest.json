@@ -1,0 +1,11 @@
+{
+  "domain": "switchbot_curtain_3_quietdrift",
+  "name": "SwitchBot Curtain 3 QuietDrift",
+  "documentation": "https://github.com/Loweack/SwitchBot-Curtain-3-QuietDrift",
+  "dependencies": [],
+  "requirements": [],
+  "codeowners": ["@Loweack"],
+  "version": "1.0.0",
+  "iot_class": "local_push",
+  "config_flow": true
+}
