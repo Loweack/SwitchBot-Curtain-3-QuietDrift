@@ -9,19 +9,39 @@ from homeassistant.helpers import entity_registry
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_ENTITY_ID
 
-from .const import CONF_SPEED, CONF_POSITION, DOMAIN, SET_COVER_POSITION_SCHEMA
+from .const import (
+    CONF_SPEED, 
+    CONF_POSITION, 
+    DOMAIN, 
+    SET_COVER_POSITION_SCHEMA,
+    SPEED_QUIETDRIFT,
+    SPEED_SILENT,
+    SPEED_NORMAL
+)
 
 _LOGGER = logging.getLogger(__name__)
+
+# Map readable names to actual integer speeds
+SPEED_MAP = {
+    SPEED_QUIETDRIFT: 1,    # QuietDrift
+    SPEED_SILENT: 2,        # Silent
+    SPEED_NORMAL: 255       # Normal
+}
 
 async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up from a config entry."""
+    """Set up from a config entry (UI)."""
 
     async def handle_set_cover_position(service_call: ServiceCall):
         data = service_call.data
-        speed = data[CONF_SPEED]
+        
+        # Get string value (e.g., "QuietDrift")
+        speed_key = data[CONF_SPEED]
+        # Convert to integer (e.g., 1)
+        speed = SPEED_MAP.get(speed_key, 255)
+        
         position = data[CONF_POSITION]
         entity_ids = data[CONF_ENTITY_ID]
 
@@ -29,23 +49,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         
         entities = []
         for eid in entity_ids:
-            entry = ent_reg.async_get(eid)
-            if entry:
-                component_data = hass.data.get('cover')
-                if component_data:
-                    entity = component_data.get_entity(eid)
+            reg_entry = ent_reg.async_get(eid)
+            if reg_entry:
+                cover_data = hass.data.get('cover')
+                if cover_data:
+                    entity = cover_data.get_entity(eid)
                     if entity:
                         entities.append(entity)
-                    else:
-                        _LOGGER.warning(f"Could not find entity object for {eid}")
-            else:
-                _LOGGER.warning(f"Entity {eid} not found in registry")
-
+        
         for entity in entities:
             try:
                 if not hasattr(entity, '_device'):
-                     _LOGGER.warning(f"Entity {entity.entity_id} missing _device. Not a SwitchBot?")
-                     continue
+                    _LOGGER.warning(f"Entity {entity.entity_id} missing _device attribute")
+                    continue
 
                 res = await entity._device.set_position(position=position, speed=speed)
                 
@@ -58,9 +74,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 entity._attr_is_opening = entity._device.is_opening()
                 entity._attr_is_closing = entity._device.is_closing()
                 entity.async_write_ha_state()
-            
+
             except Exception as e:
-                _LOGGER.error(f"Failed to set QuietDrift position for {entity.entity_id}: {e}")
+                _LOGGER.error(f"Error handling {entity.entity_id}: {e}")
 
     hass.services.async_register(
         domain=DOMAIN,

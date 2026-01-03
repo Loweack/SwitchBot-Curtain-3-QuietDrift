@@ -1,6 +1,6 @@
 set_switchbot_curtain_position:
   name: Set SwitchBot Curtain Position
-  description: Sets cover position with ability to set speed (QuietDrift).
+  description: Sets cover position with a specific speed profile.
   fields:
     entity_id:
       name: Entity
@@ -12,17 +12,20 @@ set_switchbot_curtain_position:
           multiple: true
     position:
       name: Position
-      description: Target position (0-100).
+      description: Target position (0% Closed - 100% Open).
       required: true
       selector:
         number:
           min: 0
           max: 100
+          unit_of_measurement: "%"
     speed:
-      name: Speed
-      description: Movement speed (1-255). Lower values trigger QuietDrift on supported devices.
-      default: 255
+      name: Speed Profile
+      description: Select the movement speed.
+      default: Normal
       selector:
-        number:
-          min: 1
-          max: 255
+        select:
+          options:
+            - QuietDrift
+            - Silent
+            - Normal
