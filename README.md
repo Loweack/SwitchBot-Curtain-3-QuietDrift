@@ -7,6 +7,8 @@ A native Home Assistant custom component to enable **QuietDrift** mode on Switch
 
 This component exposes a custom service that allows you to control the position of your curtains with a specific speed parameter, unlocking the silent "QuietDrift" feature that is otherwise unavailable in standard Home Assistant cover calls. It wraps the native Bluetooth library to send precise commands directly to your device.
 
+This project is based on the work by v6ak (https://github.com/v6ak/v6-quietdrift).
+
 ## ✨ Features
 
 *   **🤫 QuietDrift Support**: Move your curtains slowly and silently by setting the speed to `1` (or low values).
