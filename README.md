@@ -9,7 +9,7 @@ This component exposes a custom service that allows you to control the position 
 
 This project is based on the work by v6ak (https://github.com/v6ak/v6-quietdrift).
 
-⚠️ Your SwitchBot Curtain 3 has to be on v1.2 or newer.
+⚠️ Your SwitchBot Curtain 3 has to be on firmware v1.2 or newer.
 
 ## ✨ Features
 
