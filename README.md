@@ -1,6 +1,6 @@
 # SwitchBot Curtain 3 QuietDrift for Home Assistant
 
-![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Custom%20Component-orange)
 
 A native Home Assistant custom component to enable **QuietDrift** mode on SwitchBot Curtain 3 devices.
