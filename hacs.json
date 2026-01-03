@@ -1,0 +1,6 @@
+{
+  "name": "SwitchBot Curtain 3 QuietDrift",
+  "render_readme": true,
+  "content_in_root": false,
+  "homeassistant": "2025.12.0"
+}
